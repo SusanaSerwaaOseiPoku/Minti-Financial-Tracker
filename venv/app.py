@@ -82,11 +82,26 @@ minti_app.data_manager.record_transaction({
 
 minti_app.data_manager.record_transaction({
     "Date": "2025-11-06", 
-    "Type": "Expense",
+    "Type": "Savings",
     "Amount": 1000,
     "Category": "Salary",
-    "Description":"Monthly contribution",
+    "Description":"Emergency Fund",
     "Is_debt": False
 })
 
 ###Get the monthly summary
+summary=minti_app.get_monthly_summary("2025-11")
+
+print("\n" + "="*40)
+print(f"💰 Summary for {summary['year_month']}")
+print("="*40)
+print(f"Budget Set: ${minti_app.MONTHLY_BUDGET:.2f}")
+print(f"Total Income: ${summary['total_income']:.2f}")
+print(f"Total Expenses: ${summary['total_expenses']:.2f}")
+print(f"Net Account Balance: ${summary['net_balance']:.2f}")
+print(f"Savings Breakdown: {summary['savings_breakdown']}")
+
+# 3. Get the motivational feedback
+feedback = minti_app.generate_feedback(summary['current_spending'])
+print("\n--- Minti Feedback ---")
+print(feedback)
